@@ -1,5 +1,6 @@
 package com.vigrudolf.productivity.Personal_Time_Management_System.entities;
 
+import com.vigrudolf.productivity.Personal_Time_Management_System.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -21,6 +25,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO) // Automatically generates unique IDs
     private long id;
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
     @NotBlank(message = "Name is required") // Ensures the name field is not blank
     private String name;
 
@@ -33,12 +41,8 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING) // Maps enums as strings in the database
-    private Role role; // Role field referencing an enum
+    private UserRole role; // Role field referencing an enum
 
-    // Enum definition for roles
-    public enum Role {
-        USER,
-        ADMIN
-    }
+
 
 }
