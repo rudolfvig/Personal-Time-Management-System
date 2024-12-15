@@ -62,8 +62,4 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
-    @Override
-    public UserDTO updateUserLevel(Long id, int deltaValue) {
-        return null;
-    }
 }

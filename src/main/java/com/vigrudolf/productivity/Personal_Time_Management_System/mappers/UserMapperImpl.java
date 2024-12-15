@@ -7,11 +7,27 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public User ToUserEntity(UserDTO dto) {
-        return null;
+        User user = new User();
+        user.setId(dto.getId());
+        user.setCreatedAt(dto.getCreatedAt());
+        user.setLastModifiedAt(dto.getLastModifiedAt());
+        user.setName(dto.getName());
+        user.setRole(dto.getRole());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        return user;
     }
 
     @Override
     public UserDTO ToUserDTO(User user) {
-        return null;
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setCreatedAt(user.getCreatedAt());
+        dto.setLastModifiedAt(user.getLastModifiedAt());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        dto.setPassword(user.getPassword());
+        return dto;
     }
 }

@@ -17,6 +17,5 @@ public interface UserService {
     public boolean deleteUserByName(String name);
     public UserDTO createUser(CreateUserDTO user);
     public UserDTO updateUser(Long id, CreateUserDTO user);
-    public UserDTO updateUserLevel(Long id, int deltaValue);
 
 }
