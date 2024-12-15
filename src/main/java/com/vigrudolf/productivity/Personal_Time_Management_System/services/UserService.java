@@ -11,9 +11,9 @@ public interface UserService {
 
     public List<UserDTO> getAllUsers();
     public UserDTO getUserById(Long id);
-    public Optional<UserDTO> getUserByName(String name);
-    public Optional<UserDTO> getUserByEmail(String email);
-    public void deleteUserById(Long id);
+    public UserDTO getUserByName(String name);
+    public UserDTO getUserByEmail(String email);
+    public boolean deleteUserById(Long id);
     public boolean deleteUserByName(String name);
     public UserDTO createUser(UserDTO user);
     public UserDTO updateUser(Long id, UserDTO user);
