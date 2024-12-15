@@ -42,6 +42,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public Optional<UserDTO> getUserByName(String name) {
         User user = userRepository.findByName(name);
+        if(user == null){
+            throw new UserNotFoundException("User with name not found: " + name);
+        }
+        return Optional.ofNullable(userMapper.toUserDTO(user));
     }
 
     @Override
