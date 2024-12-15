@@ -9,8 +9,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    public User ToUserEntity(UserDTO dto);
+    public User toUserEntity(UserDTO dto);
 
     @Mapping(target = "createdAt", ignore = true)
-    public UserDTO ToUserDTO(User user);
+    public UserDTO toUserDTO(User user);
 }

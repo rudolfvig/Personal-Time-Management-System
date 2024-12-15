@@ -10,12 +10,12 @@ import java.util.Optional;
 public interface UserService {
 
     public List<UserDTO> getAllUsers();
-    public Optional<UserDTO> getUserById(Long id);
+    public UserDTO getUserById(Long id);
     public Optional<UserDTO> getUserByName(String name);
     public Optional<UserDTO> getUserByEmail(String email);
     public void deleteUserById(Long id);
     public boolean deleteUserByName(String name);
-    public UserDTO createUser(CreateUserDTO user);
-    public UserDTO updateUser(Long id, CreateUserDTO user);
+    public UserDTO createUser(UserDTO user);
+    public UserDTO updateUser(Long id, UserDTO user);
 
 }

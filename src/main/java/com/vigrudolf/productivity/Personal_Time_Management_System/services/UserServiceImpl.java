@@ -1,13 +1,15 @@
 package com.vigrudolf.productivity.Personal_Time_Management_System.services;
 
-import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.CreateUserDTO;
 import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.UserDTO;
+import com.vigrudolf.productivity.Personal_Time_Management_System.entities.User;
+import com.vigrudolf.productivity.Personal_Time_Management_System.exception.UserNotFoundException;
 import com.vigrudolf.productivity.Personal_Time_Management_System.repositories.UserRepository;
 import com.vigrudolf.productivity.Personal_Time_Management_System.mappers.UserMapper;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,17 +26,22 @@ public class UserServiceImpl implements UserService{
     }
 
     public List<UserDTO> getAllUsers(){
-        return null;
+        return userRepository.findAll().stream()
+                .map(userMapper::toUserDTO)
+                .toList();
     }
 
     @Override
-    public Optional<UserDTO> getUserById(Long id) {
-        return Optional.empty();
+    public UserDTO getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+
+           return userMapper.toUserDTO(user);
     }
 
     @Override
     public Optional<UserDTO> getUserByName(String name) {
-        return Optional.empty();
+        User user = userRepository.findByName(name);
     }
 
     @Override
@@ -53,13 +60,25 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO createUser(CreateUserDTO user) {
-        return null;
+    public UserDTO createUser(@Valid UserDTO userDTO) {
+        try{
+            User createdUser = userMapper.toUserEntity(userDTO);
+            createdUser.setCreatedAt(LocalDateTime.now());
+            createdUser.setLastModifiedAt(LocalDateTime.now());
+            User savedUser = userRepository.save(createdUser);
+            return userMapper.toUserDTO(savedUser);
+        } catch (Exception e){
+            throw new RuntimeException("Failed to create user", e);
+        }
     }
 
     @Override
-    public UserDTO updateUser(Long id, CreateUserDTO user) {
-        return null;
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        try {
+
+        }catch (Exception e){
+            throw new RuntimeException("Failed to update user", e);
+        }
     }
 
 }

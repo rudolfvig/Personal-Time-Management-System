@@ -6,7 +6,7 @@ import com.vigrudolf.productivity.Personal_Time_Management_System.entities.User;
 public class UserMapperImpl implements UserMapper {
 
     @Override
-    public User ToUserEntity(UserDTO dto) {
+    public User toUserEntity(UserDTO dto) {
         User user = new User();
         user.setId(dto.getId());
         user.setCreatedAt(dto.getCreatedAt());
@@ -19,7 +19,7 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public UserDTO ToUserDTO(User user) {
+    public UserDTO toUserDTO(User user) {
         UserDTO dto = new UserDTO();
         dto.setId(user.getId());
         dto.setCreatedAt(user.getCreatedAt());
