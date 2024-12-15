@@ -34,7 +34,7 @@ public class User {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(nullable = false, updatable = true)
+    @Column(nullable = false)
     private LocalDateTime lastModifiedAt;
 
     @NotBlank(message = "Name is required") // Ensures the name field is not blank
