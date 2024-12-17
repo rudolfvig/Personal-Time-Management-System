@@ -14,7 +14,6 @@ public class UserMapperImpl implements UserMapper {
         user.setName(dto.getName());
         user.setRole(dto.getRole());
         user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
         return user;
     }
 
@@ -27,7 +26,6 @@ public class UserMapperImpl implements UserMapper {
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole());
-        dto.setPassword(user.getPassword());
         return dto;
     }
 }

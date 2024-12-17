@@ -15,7 +15,7 @@ public interface UserService {
     public UserDTO getUserByEmail(String email);
     public boolean deleteUserById(Long id);
     public boolean deleteUserByName(String name);
-    public UserDTO createUser(UserDTO user);
+    public UserDTO createUser(CreateUserDTO createUserDTO);
     public UserDTO updateUser(Long id, UserDTO user);
 
 }

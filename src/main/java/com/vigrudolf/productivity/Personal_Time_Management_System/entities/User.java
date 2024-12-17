@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // Automatically generates unique IDs
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @CreatedDate
@@ -37,19 +37,22 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime lastModifiedAt;
 
-    @NotBlank(message = "Name is required") // Ensures the name field is not blank
+    @NotBlank(message = "Name is required")
+    @Size(min = 4, max = 50)
     private String name;
 
+    @NotBlank(message = "Email should not be empty")
     @Email(message = "Invalid email format") // Validates that the email is well-formed
     @Column(unique = true) // Ensures email is unique in the database
     private String email;
 
-    @NotBlank(message = "Password is required") // Ensures the password is not blank
-    @Size(min = 8, message = "Password must be at least 8 characters") // Enforces password length
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
+    @NotBlank(message = "The user has to have a role, the user role is empty")
     @Enumerated(EnumType.STRING) // Maps enums as strings in the database
-    private UserRole role; // Role field referencing an enum
+    private UserRole role;
 
 
 
