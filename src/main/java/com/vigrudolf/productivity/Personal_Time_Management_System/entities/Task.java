@@ -1,6 +1,6 @@
 package com.vigrudolf.productivity.Personal_Time_Management_System.entities;
 
-import com.vigrudolf.productivity.Personal_Time_Management_System.enums.SchedulePriority;
+import com.vigrudolf.productivity.Personal_Time_Management_System.enums.TaskPriority;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Schedule {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,10 +40,10 @@ public class Schedule {
     private LocalDateTime endTime;
 
     @Enumerated(EnumType.STRING)
-    private SchedulePriority priority;
+    private TaskPriority priority;
 
     @Enumerated(EnumType.STRING)
-    private SchedulePriority status;
+    private TaskPriority status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

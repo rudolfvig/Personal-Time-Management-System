@@ -5,7 +5,6 @@ import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.UserDTO;
 import com.vigrudolf.productivity.Personal_Time_Management_System.entities.User;
 import com.vigrudolf.productivity.Personal_Time_Management_System.exception.UserDeleteException;
 import com.vigrudolf.productivity.Personal_Time_Management_System.exception.UserNotFoundException;
-import com.vigrudolf.productivity.Personal_Time_Management_System.exception.UserUpdateException;
 import com.vigrudolf.productivity.Personal_Time_Management_System.repositories.UserRepository;
 import com.vigrudolf.productivity.Personal_Time_Management_System.mappers.UserMapper;
 import jakarta.validation.Valid;
@@ -123,15 +122,26 @@ public class UserServiceImpl implements UserService{
         if (userDTO.getEmail() != null) {
             userToUpdate.setEmail(userDTO.getEmail());
         }
-        if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
-            userToUpdate.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        }
         if (userDTO.getRole() != null) {
             userToUpdate.setRole(userDTO.getRole());
         }
-        
+
         User updatedUser = userRepository.save(userToUpdate);
         return userMapper.toUserDTO(updatedUser);
     }
+
+    public void updateUserPassword(Long userId, String oldPassword, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IllegalArgumentException("Old password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setLastModifiedAt(LocalDateTime.now());
+        userRepository.save(user);
+    }
+
 
 }

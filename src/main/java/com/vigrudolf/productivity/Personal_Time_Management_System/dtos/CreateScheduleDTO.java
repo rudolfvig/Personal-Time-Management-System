@@ -1,7 +1,7 @@
 package com.vigrudolf.productivity.Personal_Time_Management_System.dtos;
 
-import com.vigrudolf.productivity.Personal_Time_Management_System.enums.SchedulePriority;
-import com.vigrudolf.productivity.Personal_Time_Management_System.enums.ScheduleStatus;
+import com.vigrudolf.productivity.Personal_Time_Management_System.enums.TaskPriority;
+import com.vigrudolf.productivity.Personal_Time_Management_System.enums.TaskStatus;
 
 public class CreateScheduleDTO {
 
@@ -9,7 +9,7 @@ public class CreateScheduleDTO {
     private String description;
     private String startTime;
     private String endTime;
-    private SchedulePriority priority;
-    private ScheduleStatus status;
+    private TaskPriority priority;
+    private TaskStatus status;
     private long userId;
 }

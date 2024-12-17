@@ -1,9 +1,9 @@
 package com.vigrudolf.productivity.Personal_Time_Management_System.repositories;
 
-import com.vigrudolf.productivity.Personal_Time_Management_System.entities.Schedule;
+import com.vigrudolf.productivity.Personal_Time_Management_System.entities.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
+public interface TaskRepository extends JpaRepository<Task, Long> {
 }

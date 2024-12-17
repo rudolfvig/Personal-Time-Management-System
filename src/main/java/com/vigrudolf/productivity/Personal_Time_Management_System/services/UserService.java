@@ -17,5 +17,6 @@ public interface UserService {
     public boolean deleteUserByName(String name);
     public UserDTO createUser(CreateUserDTO createUserDTO);
     public UserDTO updateUser(Long id, UserDTO user);
+    public void updateUserPassword(Long id, String oldPassword, String newPassword);
 
 }
