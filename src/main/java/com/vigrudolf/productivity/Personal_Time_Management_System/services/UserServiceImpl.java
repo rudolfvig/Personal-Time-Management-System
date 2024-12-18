@@ -120,27 +120,21 @@ public class UserServiceImpl implements UserService{
         User userToUpdate = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User to update is not found with id: " + id));
 
-        userToUpdate.setLastModifiedAt(LocalDateTime.now());
-
-        // Validate and update name
+        // validation is done via annotations
         if (userDTO.getName() != null) {
-            if (userDTO.getName().trim().isEmpty()) {
-                throw new UserUpdateException("Name cannot be blank.", null);
-            }
             userToUpdate.setName(userDTO.getName());
         }
 
-        // Validate and update email
+        // validation is done via annotations
         if (userDTO.getEmail() != null) {
-            if (!userDTO.getEmail().contains("@")) {
-                throw new InvalidEmailFormatException("Invalid email format: " + userDTO.getEmail());
-            }
+            // Check if email already exists in the database
             if (userRepository.existsByEmail(userDTO.getEmail())) {
                 throw new DuplicateEmailException("Email is already taken: " + userDTO.getEmail());
             }
             userToUpdate.setEmail(userDTO.getEmail());
         }
 
+        userToUpdate.setLastModifiedAt(LocalDateTime.now());
         User updatedUser = userRepository.save(userToUpdate);
         return userMapper.toUserDTO(updatedUser);
     }
@@ -151,7 +145,7 @@ public class UserServiceImpl implements UserService{
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         if (!passwordEncoder.matches(updateUserPasswordDTO.getOldPassword(), user.getPassword())) {
-            throw new UpdatePasswordException("Old password is incorrect");
+            throw new UpdateUserPasswordException("Old password is incorrect");
         }
 
         user.setPassword(passwordEncoder.encode(updateUserPasswordDTO.getNewPassword()));

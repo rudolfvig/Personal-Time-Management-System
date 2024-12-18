@@ -80,8 +80,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
-    @ExceptionHandler(UpdatePasswordException.class)
-    public ResponseEntity<Object> handleUpdatePasswordException(UpdatePasswordException ex, WebRequest request) {
+    @ExceptionHandler(UpdateUserPasswordException.class)
+    public ResponseEntity<Object> handleUpdatePasswordException(UpdateUserPasswordException ex, WebRequest request) {
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("timestamp", LocalDateTime.now());
         responseBody.put("status", HttpStatus.BAD_REQUEST.value());
