@@ -1,10 +1,10 @@
 package com.vigrudolf.productivity.Personal_Time_Management_System.services;
 
 import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.CreateUserDTO;
+import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.UpdateUserPasswordDTO;
 import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.UserDTO;
 import com.vigrudolf.productivity.Personal_Time_Management_System.entities.User;
-import com.vigrudolf.productivity.Personal_Time_Management_System.exception.UserDeleteException;
-import com.vigrudolf.productivity.Personal_Time_Management_System.exception.UserNotFoundException;
+import com.vigrudolf.productivity.Personal_Time_Management_System.exception.*;
 import com.vigrudolf.productivity.Personal_Time_Management_System.repositories.UserRepository;
 import com.vigrudolf.productivity.Personal_Time_Management_System.mappers.UserMapper;
 import jakarta.validation.Valid;
@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService{
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Override
     public List<UserDTO> getAllUsers(){
         return userRepository.findAll().stream()
                 .map(userMapper::toUserDTO)
@@ -116,32 +117,41 @@ public class UserServiceImpl implements UserService{
 
         userToUpdate.setLastModifiedAt(LocalDateTime.now());
 
+        // Validate and update name
         if (userDTO.getName() != null) {
+            if (userDTO.getName().trim().isEmpty()) {
+                throw new UserUpdateException("Name cannot be blank.", null);
+            }
             userToUpdate.setName(userDTO.getName());
         }
+
+        // Validate and update email
         if (userDTO.getEmail() != null) {
+            if (!userDTO.getEmail().contains("@")) {
+                throw new InvalidEmailFormatException("Invalid email format: " + userDTO.getEmail());
+            }
+            if (userRepository.existsByEmail(userDTO.getEmail())) {
+                throw new DuplicateEmailException("Email is already taken: " + userDTO.getEmail());
+            }
             userToUpdate.setEmail(userDTO.getEmail());
-        }
-        if (userDTO.getRole() != null) {
-            userToUpdate.setRole(userDTO.getRole());
         }
 
         User updatedUser = userRepository.save(userToUpdate);
         return userMapper.toUserDTO(updatedUser);
     }
 
-    public void updateUserPassword(Long userId, String oldPassword, String newPassword) {
+    @Override
+    public void updateUserPassword(Long userId, UpdateUserPasswordDTO updateUserPasswordDTO) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new IllegalArgumentException("Old password is incorrect");
+        if (!passwordEncoder.matches(updateUserPasswordDTO.getOldPassword(), user.getPassword())) {
+            throw new UpdatePasswordException("Old password is incorrect");
         }
 
-        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setPassword(passwordEncoder.encode(updateUserPasswordDTO.getNewPassword()));
         user.setLastModifiedAt(LocalDateTime.now());
         userRepository.save(user);
     }
-
 
 }
