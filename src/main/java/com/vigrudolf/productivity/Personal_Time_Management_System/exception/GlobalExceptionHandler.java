@@ -56,6 +56,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(DuplicateUserNameException.class)
+    public ResponseEntity<String> handleDuplicateUserNameException(DuplicateUserNameException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(UserUpdateException.class)
     public ResponseEntity<Map<String, Object>> handleUserUpdateExceptions(UserUpdateException ex) {
         Map<String, Object> errorDetails = new HashMap<>();

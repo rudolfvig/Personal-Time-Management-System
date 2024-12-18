@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByName(name)
                 .orElseThrow(() -> new UserNotFoundException("User not found with name: " + name));
 
+        // Check if there are multiple users with the same name
+        if (userRepository.countByName(name) > 1) {
+            throw new DuplicateUserNameException("Multiple users found with the name: " + name);
+        }
+
         return userMapper.toUserDTO(user);
     }
 
