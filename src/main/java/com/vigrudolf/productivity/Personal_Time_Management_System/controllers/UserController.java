@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -64,16 +66,16 @@ public class UserController {
     }
 
     @PutMapping("/password/{id}")
-    public ResponseEntity<String> updateUserPassword(@PathVariable Long id,
-                                                     @RequestBody @Valid UpdateUserPasswordDTO updateUserPasswordDTO) {
-        try {
-            userService.updateUserPassword(id, updateUserPasswordDTO);
-            return ResponseEntity.ok("Password updated successfully");
-        } catch (UpdateUserPasswordException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Old password is incorrect");
-        } catch (UserNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        }
+    public ResponseEntity<Map<String, Object>> updateUserPassword(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateUserPasswordDTO updateUserPasswordDTO) {
+        userService.updateUserPassword(id, updateUserPasswordDTO);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Password updated successfully");
+
+        return ResponseEntity.ok(response);
     }
 
 
