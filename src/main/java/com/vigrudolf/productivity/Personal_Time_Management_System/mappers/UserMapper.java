@@ -13,6 +13,6 @@ public interface UserMapper {
     public User toUserEntity(UserDTO dto);
 
 
-    @Mapping(target = "createdAt", ignore = true)
+    // @Mapping(target = "createdAt", ignore = true)
     public UserDTO toUserDTO(User user);
 }

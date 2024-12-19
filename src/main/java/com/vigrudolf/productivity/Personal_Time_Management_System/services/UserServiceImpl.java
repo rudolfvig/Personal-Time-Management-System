@@ -102,7 +102,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDTO createUser(@Valid CreateUserDTO createUserDTO) {
         User createdUser = User.builder()
-                        .createdAt(LocalDateTime.now())
                         .name(createUserDTO.getName())
                         .email(createUserDTO.getEmail())
                         .password(passwordEncoder.encode(createUserDTO.getPassword()))

@@ -95,5 +95,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserDeleteException.class)
+    public ResponseEntity<String> handleUserDeleteException(UserDeleteException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }
