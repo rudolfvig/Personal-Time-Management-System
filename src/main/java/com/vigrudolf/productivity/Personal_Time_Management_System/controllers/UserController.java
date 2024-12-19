@@ -78,10 +78,60 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{Id}")
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Map<String, Object>> deleteUserById(@PathVariable Long id) {
+        boolean isDeleted = userService.deleteUserById(id);
+
+        Map<String, Object> response = new HashMap<>();
+        if (isDeleted) {
+            response.put("success", true);
+            response.put("message", "User deleted successfully");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("success", false);
+            response.put("message", "User not found or could not be deleted");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
+
+    @DeleteMapping("/email/{email}")
+    public ResponseEntity<Map<String, Object>> deleteUserByEmail(@PathVariable String email) {
+        boolean isDeleted = userService.deleteUserByEmail(email);
+
+        HashMap<String, Object> response = new HashMap<>();
+        if(isDeleted) {
+            response.put("success", true);
+            response.put("message", "User is successfully deleted");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("success", false);
+            response.put("message", "User not found or could not be deleted");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
+
 
 
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
