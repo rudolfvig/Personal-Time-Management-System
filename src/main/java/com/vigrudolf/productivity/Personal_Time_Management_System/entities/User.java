@@ -4,6 +4,7 @@ import com.vigrudolf.productivity.Personal_Time_Management_System.enums.UserRole
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,7 +51,7 @@ public class User {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    @NotBlank(message = "The user has to have a role, the user role is empty")
+    @NotNull(message = "The user has to have a role, the user role is empty")
     @Enumerated(EnumType.STRING) // Maps enums as strings in the database
     private UserRole role;
 
