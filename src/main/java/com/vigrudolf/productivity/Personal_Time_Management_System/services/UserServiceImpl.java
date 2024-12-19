@@ -83,19 +83,19 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean deleteUserByName(String name) {
+    public boolean deleteUserByEmail(String email) {
         try {
-            userRepository.findByName(name)
-                    .orElseThrow(() -> new UserNotFoundException("User not found with name: " + name));
+            userRepository.findByEmail(email)
+                    .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
 
-            userRepository.deleteByName(name);
+            userRepository.deleteByEmail(email);
 
             return true;
 
         } catch (UserDeleteException e){
             return false;
         } catch (Exception e){
-            throw new UserDeleteException("An unexpected error occurred while deleting user with name: " + name, e);
+            throw new UserDeleteException("An unexpected error occurred while deleting user with email: " + email, e);
         }
     }
 

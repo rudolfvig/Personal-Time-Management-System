@@ -78,6 +78,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/{Id}")
 
 
 
