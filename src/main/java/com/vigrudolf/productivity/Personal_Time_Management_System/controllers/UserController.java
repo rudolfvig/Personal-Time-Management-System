@@ -3,8 +3,6 @@ package com.vigrudolf.productivity.Personal_Time_Management_System.controllers;
 import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.CreateUserDTO;
 import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.UpdateUserPasswordDTO;
 import com.vigrudolf.productivity.Personal_Time_Management_System.dtos.UserDTO;
-import com.vigrudolf.productivity.Personal_Time_Management_System.exception.UpdateUserPasswordException;
-import com.vigrudolf.productivity.Personal_Time_Management_System.exception.UserNotFoundException;
 import com.vigrudolf.productivity.Personal_Time_Management_System.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,11 +107,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
-
-
-
-
-
 
 }
 
