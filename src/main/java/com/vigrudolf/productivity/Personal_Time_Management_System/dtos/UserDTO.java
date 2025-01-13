@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Data
 public class UserDTO {
 
-    @Positive
     private long id;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
