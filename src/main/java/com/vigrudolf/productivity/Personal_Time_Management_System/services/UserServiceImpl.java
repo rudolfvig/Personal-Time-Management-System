@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -82,6 +83,7 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Transactional
     @Override
     public boolean deleteUserByEmail(String email) {
         try {
@@ -89,12 +91,11 @@ public class UserServiceImpl implements UserService{
                     .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
 
             userRepository.deleteByEmail(email);
-
             return true;
 
-        } catch (UserDeleteException e){
-            return false;
-        } catch (Exception e){
+        } catch (UserNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
             throw new UserDeleteException("An unexpected error occurred while deleting user with email: " + email, e);
         }
     }
