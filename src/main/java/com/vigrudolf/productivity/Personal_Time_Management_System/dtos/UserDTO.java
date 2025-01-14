@@ -2,7 +2,6 @@ package com.vigrudolf.productivity.Personal_Time_Management_System.dtos;
 
 import com.vigrudolf.productivity.Personal_Time_Management_System.enums.UserRole;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
