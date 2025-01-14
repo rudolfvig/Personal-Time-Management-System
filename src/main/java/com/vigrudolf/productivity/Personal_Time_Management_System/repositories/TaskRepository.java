@@ -1,6 +1,6 @@
 package com.vigrudolf.productivity.Personal_Time_Management_System.repositories;
 
-import com.vigrudolf.productivity.Personal_Time_Management_System.entities.Task;
+import com.vigrudolf.productivity.Personal_Time_Management_System.entities.tasks.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
